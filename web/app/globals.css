@@ -1,0 +1,136 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-noche: #0b1233;
+  --color-noche-alto: #141c46;
+  --color-noche-borde: #26305f;
+  --color-tinta: #060a1e;
+  --color-hueso: #f4ede1;
+  --color-bruma: #b9bcd4;
+  --color-sol: #ff6b2c;
+  --color-sol-hondo: #d94d13;
+  --color-lima: #d9f25c;
+  --color-vino: #7b1e3c;
+
+  --font-display: var(--fuente-display), 'Arial Black', system-ui, sans-serif;
+  --font-sans: var(--fuente-sans), system-ui, sans-serif;
+
+  --text-titan: clamp(2.3rem, 4.6vw, 3.9rem);
+  --text-titan--line-height: 0.96;
+  --text-grande: clamp(1.7rem, 3vw, 2.45rem);
+  --text-grande--line-height: 1.02;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-noche);
+  color: var(--color-hueso);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Titulares con el ancho expandido del eje variable de Archivo: leen como letrero de precios. */
+.titular {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 118;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+.numero {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 112;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.rotulo {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 108;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+::selection {
+  background: var(--color-sol);
+  color: var(--color-noche);
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-lima);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* El radar de despacho es el único movimiento que se inicia solo en la página. */
+@keyframes pulso-radar {
+  0% {
+    transform: scale(0.25);
+    opacity: 0.65;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes latido {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes entrada-carta {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pulso {
+  animation: pulso-radar 3.2s ease-out infinite;
+}
+
+.latido {
+  animation: latido 1.6s ease-in-out infinite;
+}
+
+.entrada {
+  animation: entrada-carta 0.32s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .pulso,
+  .latido,
+  .entrada {
+    animation: none;
+  }
+  .pulso {
+    opacity: 0.2;
+  }
+}
+
+/* Textura de trama fina: la del papel de la boleta impresa. */
+.trama {
+  background-image: radial-gradient(circle at 1px 1px, rgba(244, 237, 225, 0.09) 1px, transparent 0);
+  background-size: 22px 22px;
+}
