@@ -3,7 +3,14 @@
 Landing que recomienda tragos según los gustos de quien entra, arma el pack de botellas con el
 catálogo real de Edrink y despacha el pedido a una red de botillerías con lógica tipo Uber.
 
-Fecha: 2026-09-03. Estado: construido y verificado en local, sin desplegar.
+Fecha: 2026-09-03. Estado: desplegado y verificado en producción.
+
+| | |
+|---|---|
+| Sitio | https://bartenderdelivery.vercel.app |
+| Panel de botillería | https://bartenderdelivery.vercel.app/botilleria |
+| Repositorio | https://github.com/villagran13/bartenderdelivery (privado) |
+| Proyecto Vercel | `villagran13s-projects/bartenderdelivery` |
 
 ---
 
@@ -118,6 +125,10 @@ El único movimiento que arranca solo en toda la página es el pulso del radar, 
 
 ## Cómo se demuestra
 
+En vivo: https://bartenderdelivery.vercel.app
+
+En local:
+
 ```
 cd web
 npm install
@@ -135,7 +146,14 @@ npm run dev
 
 ## Qué quedó pendiente
 
-- **Sin desplegar.** Falta definir el dominio y subirlo a Vercel.
+- **Sin dominio propio.** Vive en el subdominio de Vercel. Si el cliente aprueba, se apunta uno suyo.
+- **El sitio no se indexa.** `layout.tsx` manda `noindex, nofollow`: es público por enlace, pero usa
+  la marca y el catálogo de Edrink sin que ellos hayan aprobado nada, así que no debe aparecer en
+  buscadores hasta que lo aprueben. Se quita cambiando `robots` en `app/layout.tsx`.
+- **El despliegue es manual.** El proyecto de Vercel no está conectado al repositorio de GitHub,
+  porque el código vive en `web/` y la integración habría que apuntarla a esa subcarpeta. Se publica
+  con `npx vercel --prod` desde `web/`. Conectarlo es cosa de cambiar el Root Directory del proyecto
+  en Vercel a `web` y enlazar el repo.
 - **La sincronización es por navegador.** `BroadcastChannel` y `localStorage` no cruzan equipos:
   el panel de la botillería solo recibe pedidos hechos en el mismo navegador. Llevarlo a varios
   dispositivos exige un servidor con estado (Durable Objects, Supabase Realtime o similar).
